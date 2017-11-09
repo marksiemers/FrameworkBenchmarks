@@ -4,7 +4,11 @@ require "pg"
 # Compose Objects (like Hash) to have a to_json method
 require "json/to_json"
 
-APPDB = DB.open("postgres://benchmarkdbuser:benchmarkdbpass@#{ENV["DBHOST"]? || "127.0.0.1"}/hello_world")
+CONN_POOL_SIZE = System.cpu_count * 2
+DB_URL_BASE = "postgres://benchmarkdbuser:benchmarkdbpass@#{ENV["DBHOST"]? || "127.0.0.1"}/hello_world"
+DB_URL_PARAMS = "?max_pool_size=#{CONN_POOL_SIZE}&max_idle_pool_size=#{CONN_POOL_SIZE}"
+DB_URL = "#{DB_URL_BASE}#{DB_URL_PARAMS}"
+APPDB = DB.open(DB_URL)
 
 class CONTENT
   UTF8  = "; charset=UTF-8"
