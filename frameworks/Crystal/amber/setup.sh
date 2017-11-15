@@ -9,7 +9,7 @@ crystal build --release --no-debug src/amber.cr
 export CPU_COUNT=$(nproc --all)
 export HALF_CPU_COUNT=$((((CPU_COUNT - 1) / 2) + 1))
 
-export GC_MARKERS=$HALF_CPU_COUNT
+export GC_MARKERS=2
 
 export AMBER_ENV=production
 

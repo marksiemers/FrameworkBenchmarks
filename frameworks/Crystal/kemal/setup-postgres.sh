@@ -9,7 +9,7 @@ crystal build --release --no-debug server-postgres.cr
 export CPU_COUNT=$(nproc --all)
 export HALF_CPU_COUNT=$((((CPU_COUNT - 1) / 2) + 1))
 
-export GC_MARKERS=$HALF_CPU_COUNT
+export GC_MARKERS=2
 
 export KEMAL_ENV=production
 
