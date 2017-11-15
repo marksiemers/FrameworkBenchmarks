@@ -5,4 +5,4 @@ require "./controllers/*"
 require "./pipes/*"
 require "../config/*"
 
-Amber::Server.instance.run
+Amber::Server.start
