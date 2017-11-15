@@ -3,11 +3,7 @@ require "json"
 require "pg"
 require "ecr"
 
-CONN_POOL_SIZE = System.cpu_count * 2
-DB_URL_BASE = "postgres://benchmarkdbuser:benchmarkdbpass@#{ENV["DBHOST"]? || "127.0.0.1"}/hello_world"
-DB_URL_PARAMS = "?max_pool_size=#{CONN_POOL_SIZE}&max_idle_pool_size=#{CONN_POOL_SIZE}"
-DB_URL = "#{DB_URL_BASE}#{DB_URL_PARAMS}"
-APPDB = DB.open(DB_URL)
+APPDB = DB.open("postgres://benchmarkdbuser:benchmarkdbpass@#{ENV["DBHOST"]? || "127.0.0.1"}/hello_world")
 ID_MAXIMUM = 10_000
 
 server = HTTP::Server.new("0.0.0.0", 8080) do |context|
@@ -16,7 +12,7 @@ server = HTTP::Server.new("0.0.0.0", 8080) do |context|
 
   response.headers["Server"] = "Crystal"
   response.headers["Date"] = Time.utc_now.to_s
-
+  
   case request.path
   when "/json"
     response.status_code = 200
@@ -62,7 +58,7 @@ server = HTTP::Server.new("0.0.0.0", 8080) do |context|
     JSON.build(response) do |json|
       json.array do
         sanitized_query_count(request).times do
-          world = set_world({id: random_world[:id], randomNumber: rand(1..ID_MAXIMUM)})
+          world = set_world({id: random_world[:id], randomNumber: rand(1..ID_MAXIMUM)})          
           world.to_json(json)
         end
       end
