@@ -2,7 +2,7 @@
 
 fw_depends postgresql crystal
 
-shards install
+shards update
 
 crystal build --release --no-debug src/amber.cr
 
