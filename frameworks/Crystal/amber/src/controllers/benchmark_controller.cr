@@ -2,12 +2,23 @@ class BenchmarkController < Amber::Controller::Base
   LAYOUT     = "main.ecr"
   HTML_UTF8  = "text/html; charset=UTF-8"
   JSON       = "application/json"
+  TEXT_PLAIN = "text/plain"
   ID_MAXIMUM = 10_000
 
   def initialize(@context)
     super(@context)
     response.headers["Server"] = "Amber"
     response.headers["Date"] = Time.now.to_s
+  end
+
+  def plaintext
+    response.content_type = TEXT_PLAIN
+    "Hello, World!"
+  end
+
+  def json
+    response.content_type = JSON
+    {message: "Hello, World!"}.to_json
   end
 
   def db
