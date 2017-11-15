@@ -1,4 +1,4 @@
-class Amber::Pipe::Fast < Amber::Pipe:Base
+class Amber::Pipe::Fast < Amber::Pipe::Base
   macro context_with(content_type)
     context.response.status_code = 200
     context.response.headers["Server"] = "Amber"
