@@ -1,5 +1,6 @@
 Amber::Server.configure do |app|
   pipeline :web do
+    plug Amber::Pipe::Fast.new
   end
 
   routes :web do
